@@ -1,9 +1,8 @@
 import pandas as pd
-import numpy as np
 from torch.utils.data import DataLoader, TensorDataset
 from torch import nn, cuda
 import torch
-from torch.optim import Adam, SGD
+from torch.optim import Adam
 
 # check if cuda is available, if not use cpu
 # cuda is not avalable on my machine, but may be on another
@@ -72,12 +71,10 @@ def main():
 	test_features = torch.tensor(test_features.to_numpy(), dtype=torch.float32)
 
 	# create tensor dataset
-	train_data = TensorDataset(train_features, train_labels)
-	test_data = TensorDataset(test_features, test_labels)
+	train_dataset = TensorDataset(train_features, train_labels)
 
 	# create dataloaders
-	train_loader = DataLoader(train_data, batch_size=32)
-	test_loader = DataLoader(test_data, batch_size=32)
+	train_loader = DataLoader(train_dataset, batch_size=32)
 
 	classifier = NeuralNet()
 	optimizer = Adam(classifier.parameters(), lr=0.002)
@@ -98,7 +95,17 @@ def main():
 		print(f"Epoch {epoch + 1} loss is {loss.item()}")
 
 	torch.save(classifier.state_dict(), 'full_model.pth')
+
+	# test model
 	
+	total_correct = 0
+	total = len(test_labels)
+
+	for i in range(len(test_features)):
+		if test_labels[i] == torch.argmax(classifier(test_features[i])):
+			total_correct += 1
+	
+	print(f"Accuracy: {total_correct / total}")
 	
 
 if __name__ == '__main__':
