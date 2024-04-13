@@ -13,10 +13,10 @@ def main():
     df = pd.read_csv(f'results/pruned_accuracy_{argv[1]}_features.csv', index_col=None, usecols=["Threshold", "Accuracy", "Sparsity"], sep=',')
 
     # plot the results
-
-    # Pruining Threshold vs Accuracy
-    plt.rcParams["figure.figsize"] = [8, 5]
+    plt.rcParams["figure.figsize"] = [5, 3]
     plt.rcParams["figure.autolayout"] = True
+
+    # Pruning Threshold vs Accuracy
     plt.plot(df['Threshold'], df['Accuracy'])
     plt.xlabel('Threshold')
     plt.ylabel('Accuracy')
