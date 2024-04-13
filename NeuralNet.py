@@ -1,7 +1,7 @@
 from torch import nn, cuda
 
 # check if cuda is available, if not use cpu
-# cuda is not avalable on my machine, but may be on another
+# cuda is not available on my machine, but may be on another
 processing_device = 'cuda' if cuda.is_available() else 'cpu'
 
 

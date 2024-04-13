@@ -9,7 +9,7 @@ def main():
     # the number of features is used to read the correct csv file
     num_features = int(argv[1])
     
-    # read the resulst csv file into a dataframe
+    # read the results csv file into a dataframe
     df = pd.read_csv(f'results/pruned_accuracy_{argv[1]}_features.csv', index_col=None, usecols=["Threshold", "Accuracy", "Sparsity"], sep=',')
 
     # plot the results
