@@ -22,7 +22,7 @@ def main():
 
     # open a file called pruned_accuracy_{number of features}_features.csv to collect the results of the pruned models
     f = open(f'results/pruned_accuracy_{argv[1]}_features.csv', 'w')
-    f.write('Threshold,Accuracy,Sparcity\n')
+    f.write('Threshold,Accuracy,Sparsity\n')
     f.write(f'0, {orig_test_accuracy},0\n')
 
     # initial threshold for pruning
@@ -43,11 +43,11 @@ def main():
         
         # evaluate the pruned model
         pruned_accuracy = evalaute_model(classifier=classifier)
-        # calculate the sparcity of the model
-        sparcity = float(torch.sum(classifier.model.hl1.weight == 0) + torch.sum(classifier.model.hl2.weight == 0)) \
+        # calculate the sparsity of the model
+        sparsity = float(torch.sum(classifier.model.hl1.weight == 0) + torch.sum(classifier.model.hl2.weight == 0)) \
             / float(classifier.model.hl1.weight.nelement() + classifier.model.hl2.weight.nelement())
         # write the results to the file
-        f.write(f'{round(initial_threshold, 3)},{pruned_accuracy},{round(sparcity, 3)}\n')
+        f.write(f'{round(initial_threshold, 3)},{pruned_accuracy},{round(sparsity, 3)}\n')
 
         # increase the threshold by 0.001 for next iteration
         initial_threshold += 0.001

@@ -9,7 +9,7 @@ def main():
     num_features = int(argv[1])
     
     # read the resulst csv file into a dataframe
-    df = pd.read_csv(f'results/pruned_accuracy_{argv[1]}_features.csv', index_col=None, usecols=["Threshold", "Accuracy", "Sparcity"], sep=',')
+    df = pd.read_csv(f'results/pruned_accuracy_{argv[1]}_features.csv', index_col=None, usecols=["Threshold", "Accuracy", "Sparsity"], sep=',')
 
     # plot the results
 
@@ -23,20 +23,20 @@ def main():
     plt.savefig(f'plots/threshold_accuracy_{argv[1]}_features.png')
     plt.clf()
 
-    # Pruning Threshold vs Sparcity
-    plt.plot(df['Threshold'], df['Sparcity'])
+    # Pruning Threshold vs Sparsity
+    plt.plot(df['Threshold'], df['Sparsity'])
     plt.xlabel('Threshold')
-    plt.ylabel('Sparcity')
-    plt.title(f'Pruning Threshold vs Sparcity with {num_features} features')
-    plt.savefig(f'plots/threshold_sparcity_{argv[1]}_features.png')
+    plt.ylabel('Sparsity')
+    plt.title(f'Pruning Threshold vs Sparsity with {num_features} features')
+    plt.savefig(f'plots/threshold_sparsity_{argv[1]}_features.png')
     plt.clf()
 
-    # Sparcity vs Accuracy
-    plt.plot(df['Sparcity'], df['Accuracy'])
-    plt.xlabel('Sparcity')
+    # Sparsity vs Accuracy
+    plt.plot(df['Sparsity'], df['Accuracy'])
+    plt.xlabel('Sparsity')
     plt.ylabel('Accuracy')
-    plt.title(f'Sparcity vs Accuracy with {num_features} features')
-    plt.savefig(f'plots/sparcity_accuracy_{argv[1]}_features.png')
+    plt.title(f'Sparsity vs Accuracy with {num_features} features')
+    plt.savefig(f'plots/sparsity_accuracy_{argv[1]}_features.png')
     plt.clf()
 
 
