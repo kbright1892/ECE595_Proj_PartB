@@ -10,7 +10,7 @@ def main(**kwargs):
     test_features = pd.read_pickle(f'./data/{argv[1]}_features/test_features.pickle')
     test_labels = pd.read_pickle(f'./data/{argv[1]}_features/test_labels.pickle')
 
-    # convert to tensors
+    # convert to tensors for pytorch
     train_features = torch.tensor(train_features.to_numpy(), dtype=torch.float32)
     train_labels = torch.tensor(train_labels.to_numpy(), dtype=torch.long)
     test_features = torch.tensor(test_features.to_numpy(), dtype=torch.float32)
@@ -29,6 +29,7 @@ def main(**kwargs):
         else: # unpruned model
             classifier.load_state_dict(torch.load(f'models/{argv[2]}_{argv[1]}.pth'), strict=False)
     else:
+        # model is passed in from prune_model.py or another function
         classifier = kwargs['classifier']
 
     # calculate test accuracy
@@ -42,11 +43,13 @@ def main(**kwargs):
 
     test_accuracy = total_correct / total
 
+    # for pruning evaluation, we only return the test accuracy
     if len(kwargs) == 1:
         return test_accuracy
 
-
-    if len(kwargs) == 0 or len(kwargs) == 2: # initial training or one-time evaluation
+    # initial training or one-time evaluation, return both accuracies
+    # during training, both accuracies are needed to ensure the model is not overfitting
+    if len(kwargs) == 0 or len(kwargs) == 2: 
         # calculate training accuracy
         total_correct = 0
         

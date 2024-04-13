@@ -7,7 +7,11 @@ from NeuralNet import NeuralNet
 from sys import argv
 from evaluate_model import main as evaluate_model
 
+
+# performs initial training on the model using the training features and labels
+# results are saved in a csv file called train_{number of features}_features.csv
 def main():
+	# load training features and labels
 	train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')
 	train_labels = pd.read_pickle(f'./data/{argv[1]}_features/train_labels.pickle')
 
@@ -21,11 +25,15 @@ def main():
 	# create dataloader
 	train_loader = DataLoader(train_dataset, batch_size=32)
 
+	# initial learning rate
 	learning_rate = 0.001
 
+	# open file to save results
 	f = open(f'results/train_{argv[1]}_features.csv', 'w')
+	# write headers
 	f.write('Learning Rate,Train Accuracy,Test Accuracy\n')
 
+	# train model with 5 different learning rates for 1000 epochs using the Adam optimizer and CrossEntropyLoss
 	for i in range(0, 5):
 		# create model, optimizer, and loss function
 		classifier = NeuralNet(int(argv[1]))
@@ -53,7 +61,7 @@ def main():
 		# save model
 		torch.save(classifier.state_dict(), f'models/full_{argv[1]}_{round(learning_rate, 3)}.pth')
 
-		# increase learning rate by 0.001
+		# increase learning rate by 0.001 for next iteration
 		learning_rate += 0.001
 
 	f.close()
