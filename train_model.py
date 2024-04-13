@@ -3,12 +3,12 @@ from torch.utils.data import DataLoader, TensorDataset
 from torch import nn
 import torch
 from torch.optim import Adam
-from Model import NeuralNet
-
+from NeuralNet import NeuralNet
+from sys import argv
 
 def main():
-	train_features = pd.read_pickle('./data/train_features.pickle')
-	train_labels = pd.read_pickle('./data/train_labels.pickle')
+	train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')
+	train_labels = pd.read_pickle(f'./data/{argv[1]}_features/train_labels.pickle')
 
 	# convert to tensors
 	train_labels = torch.tensor(train_labels.to_numpy(), dtype=torch.long)
@@ -21,7 +21,7 @@ def main():
 	train_loader = DataLoader(train_dataset, batch_size=32)
 
 	# create model, optimizer, and loss function
-	classifier = NeuralNet()
+	classifier = NeuralNet(int(argv[1]))
 	optimizer = Adam(classifier.parameters(), lr=0.002)
 	loss_fn = nn.CrossEntropyLoss()
 
@@ -41,7 +41,7 @@ def main():
 		print(f"Epoch {epoch + 1} loss is {loss.item()}")
 
 	# save model
-	torch.save(classifier.state_dict(), 'full_model.pth')
+	torch.save(classifier.state_dict(), f'models/{argv[2]}_{argv[1]}.pth')
 	
 	
 	
