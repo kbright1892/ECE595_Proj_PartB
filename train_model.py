@@ -10,6 +10,7 @@ from evaluate_model import main as evaluate_model
 
 # performs initial training on the model using the training features and labels
 # results are saved in a csv file called train_{number of features}_features.csv
+# requires the number of features as a command line argument
 def main():
 	# load training features and labels
 	train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')

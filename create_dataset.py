@@ -5,6 +5,7 @@ from sys import argv
 
 # used to generate pickle files for the dataset to be used in the neural network
 # allows for consistency and easy re-use
+# requires the number of features as a command line argument
 def main():
 	# convert string to int
 	num_features = int(argv[1])

@@ -4,6 +4,7 @@ import pandas as pd
 
 
 # plot results uses the results from the pruned_accuracy_{number of features}_features.csv file to create graphs of the results
+# requires the number of features as a command line argument
 def main():
     # the number of features is used to read the correct csv file
     num_features = int(argv[1])

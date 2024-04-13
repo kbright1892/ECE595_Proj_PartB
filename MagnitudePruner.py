@@ -5,7 +5,7 @@ import torch
 # pruner that removes weights with magnitude less than a threshold
 class MagnitudePruner(prune.BasePruningMethod):
     PRUNING_TYPE = "unstructured"
-
+    # requires the threshold to be passed in
     def __init__(self, threshold):
         self.threshold = threshold
 

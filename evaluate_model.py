@@ -11,6 +11,8 @@ from sys import argv
 # 1. full model: full and the number of features are passed as arguments
 # 2. pruned model: pruned, the number of features, and the threshold are passed as arguments
 # training accuracies are only retured for one-time evaluation and if a second keyword argument is passed since they're not always needed
+# requires the number of features as a command line argument, either when calling this direclty or when calling this from another function
+# if called from another function, it will read the first command line argument from that function
 def main(**kwargs):
     # load data
     train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')

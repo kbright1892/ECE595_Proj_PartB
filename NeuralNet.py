@@ -11,6 +11,7 @@ processing_device = 'cuda' if cuda.is_available() else 'cpu'
 # I couldn't find a great rule of thumb for the number of neurons in the hidden layers, so I followed some advice I found online
 # the output layer has 2 neurons for binary classification
 class NeuralNet(nn.Module):
+	# needs the number of features as the only parameter to determine the number of neurons in the input and hidden layers
 	def __init__(self, num_features: int):
 		super().__init__()
 

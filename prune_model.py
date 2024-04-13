@@ -9,6 +9,7 @@ from evaluate_model import main as evalaute_model
 # prune the model until the accuracy drops below 90% of the original accuracy
 # the model is pruned in steps of 0.001
 # the results are saved in a csv file called pruned_accuracy_{number of features}_features.csv for plotting
+# requires the number of features as a command line argument
 def main():
     # load the unpruned model
     classifier = NeuralNet(int(argv[1]))
