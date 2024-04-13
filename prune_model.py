@@ -56,13 +56,15 @@ def main():
 
     # save the most pruned model with accuracy above 90% of the original accuracy
     classifier.load_state_dict(torch.load(f'models/full_{int(argv[1])}.pth'))
-    # threshold is decreased by 0.001 to get the model with accuracy above 90% of the original accuracy
-    prune.global_unstructured(parameters_to_prune, pruning_method=MagnitudePruner, threshold=initial_threshold - 0.001)
+    # threshold is decreased by 0.002 to get the model with accuracy above 90% of the original accuracy
+    # threshold minus 0.001 would be the model with accuracy below 90% of the original accuracy, and another increment
+    # would be performed prior to checking the accuracy
+    prune.global_unstructured(parameters_to_prune, pruning_method=MagnitudePruner, threshold=initial_threshold - 0.002)
     prune.remove(classifier.model.hl1, "weight")
     prune.remove(classifier.model.hl2, "weight")
 
     # save the most pruned model with accuracy above 90% of the original accuracy
-    torch.save(classifier.state_dict(), f'models/pruned_{argv[1]}_{round(initial_threshold - 0.001, 3)}.pth')
+    torch.save(classifier.state_dict(), f'models/pruned_{argv[1]}_{round(initial_threshold - 0.002, 3)}.pth')
 
 
 if __name__ == '__main__':
