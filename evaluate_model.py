@@ -2,24 +2,24 @@ import torch
 from NeuralNet import NeuralNet
 import pandas as pd
 from sys import argv
-from torch.nn.utils import prune
 
 def main(**kwargs):
     # load data
-    # train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')
-    # train_labels = pd.read_pickle(f'./data/{argv[1]}_features/train_labels.pickle')
+    train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')
+    train_labels = pd.read_pickle(f'./data/{argv[1]}_features/train_labels.pickle')
     test_features = pd.read_pickle(f'./data/{argv[1]}_features/test_features.pickle')
     test_labels = pd.read_pickle(f'./data/{argv[1]}_features/test_labels.pickle')
 
     # convert to tensors
-    # train_features = torch.tensor(train_features.to_numpy(), dtype=torch.float32)
-    # train_labels = torch.tensor(train_labels.to_numpy(), dtype=torch.long)
+    train_features = torch.tensor(train_features.to_numpy(), dtype=torch.float32)
+    train_labels = torch.tensor(train_labels.to_numpy(), dtype=torch.long)
     test_features = torch.tensor(test_features.to_numpy(), dtype=torch.float32)
     test_labels = torch.tensor(test_labels.to_numpy(), dtype=torch.long)
 
     classifier: NeuralNet = None
 
     # can be called independently and given a model via argv or called by another function and given a model via kwargs
+    # kwargs is used to pass the model from prune_model.py to evaluate_model.py
     if len(kwargs) == 0:
         # load model
         classifier = NeuralNet(int(argv[1]))
@@ -31,18 +31,7 @@ def main(**kwargs):
     else:
         classifier = kwargs['classifier']
 
-
-    # calculate accuracy
-    # total_correct = 0
-    
-    # total = len(train_labels)
-
-    # for i in range(len(train_features)):
-    #     if train_labels[i] == torch.argmax(classifier(train_features[i])):
-    #         total_correct += 1
-
-    # print(f"Train Accuracy: {total_correct / total}")
-
+    # calculate test accuracy
     total_correct = 0
 
     total = len(test_labels)
@@ -53,10 +42,25 @@ def main(**kwargs):
 
     test_accuracy = total_correct / total
 
-    if len(kwargs) > 0:
+    if len(kwargs) == 1:
         return test_accuracy
-    else:
-        print(f"Test Accuracy: {test_accuracy}")
+
+
+    if len(kwargs) == 0 or len(kwargs) == 2: # initial training or one-time evaluation
+        # calculate training accuracy
+        total_correct = 0
+        
+        total = len(train_labels)
+
+        for i in range(len(train_features)):
+            if train_labels[i] == torch.argmax(classifier(train_features[i])):
+                total_correct += 1
+
+        train_accuracy = total_correct / total
+
+        return train_accuracy, test_accuracy
+
+    
 
 if __name__ == '__main__':
     main()

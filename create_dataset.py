@@ -1,4 +1,3 @@
-import torch
 import pandas as pd
 import pickle
 from sys import argv
