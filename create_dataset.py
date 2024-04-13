@@ -2,6 +2,7 @@ import pandas as pd
 import pickle
 from sys import argv
 
+
 # used to generate pickle files for the dataset to be used in the neural network
 # allows for consistency and easy re-use
 def main():

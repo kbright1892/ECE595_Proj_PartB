@@ -3,6 +3,14 @@ from NeuralNet import NeuralNet
 import pandas as pd
 from sys import argv
 
+
+# evaluate the model using the test set
+# the model can be passed via command line or as a keyword argument
+# if the model is passed as a keyword argument, it is being called by another function
+# if the model is passed via command line, there are 2 possible cases:
+# 1. full model: full and the number of features are passed as arguments
+# 2. pruned model: pruned, the number of features, and the threshold are passed as arguments
+# training accuracies are only retured for one-time evaluation and if a second keyword argument is passed since they're not always needed
 def main(**kwargs):
     # load data
     train_features = pd.read_pickle(f'./data/{argv[1]}_features/train_features.pickle')
