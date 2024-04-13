@@ -20,14 +20,14 @@
 
 ## models
 
-- Contains all full models from training in the format 'full*{number of features}*{learning rate}.pth'
+- Contains all full models from training in the format 'full\_{number of features}\_{learning rate}.pth'
   - The best model is duplicated, and the learning rate is removed from the name for used in pruning
-- The pruned model with maximum pruning, while maintaining >90% accuracy compared to the full model, is also included in the format 'pruned*{number of features}*{threshold}.pth'
+- The pruned model with maximum pruning, while maintaining >90% accuracy compared to the full model, is also included in the format 'pruned\_{number of features}\_{threshold}.pth'
 
 ## results
 
 - Contains CSV files with the training accuracy, test accuracy, and learning rate for each full model in the format 'train\_{number of features}\_features.csv'
-- Contains CSV files with the pruning threshold, accuracy against the test set, and model sparsity in the format 'pruned*accuracy*{number of features}\_features.csv'
+- Contains CSV files with the pruning threshold, accuracy against the test set, and model sparsity in the format 'pruned_accuracy\_{number of features}\_features.csv'
   - Values are recorded as the pruning threshold is increased in increments of 0.001 until accuracy drops below 90% relative to the full model
 
 ## plots
