@@ -38,9 +38,7 @@ def main():
 
 	# split data into train and test sets using a 70/30 split
 	train_data = data.sample(frac=0.7, random_state=0)
-	print(len(train_data))
 	test_data = data.drop(train_data.index)
-	print(len(test_data))
 
 	# split labels from features and save dataframes to pickle files for later use
 	train_features = train_data.drop(columns='label')

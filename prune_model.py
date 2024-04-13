@@ -48,11 +48,7 @@ def main():
 
     # save the most pruned model with accuracy above 90% of the original accuracy
     torch.save(classifier.state_dict(), f'models/pruned_{argv[1]}_{round(initial_threshold - 0.001, 3)}.pth')
-
-    # print the global sparsity of the model
-    print(f"Model sparsity: {round(
-        100. * float(torch.sum(classifier.model.hl1.weight == 0) + torch.sum(classifier.model.hl2.weight == 0)) /
-        float(classifier.model.hl1.weight.nelement() + classifier.model.hl2.weight.nelement()), 2)}%")
+    
 
 if __name__ == '__main__':
     main()
