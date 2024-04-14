@@ -118,6 +118,13 @@
 - Uses matplotlib to create plots of Pruning Threshold vs. Accuracy, Pruning Threshold vs. Sparsity, and Sparsity vs. Accuracy for each feature count, based on the value passed as a command line argument
 - The data is from the files created in prune_model.py
 
+## view_tensor_weights.py
+
+- Uses matplot lib to create histograms of the weights in each full model
+- Loads the full model based on the number of features passed as a command line argument
+- Extracts the weight tensors, converts them to Numpy arrays, flattens them, and concatenates them.
+- The concatenated array is used to plot the histogram
+
 # Overall Program Flow
 
 1. create_dataset.py is called with command line arguments of 10, 20, and 30 to generate the dataframes of the dataset features and labels
