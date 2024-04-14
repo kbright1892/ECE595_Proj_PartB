@@ -20,7 +20,7 @@ def main():
     plt.plot(df['Threshold'], df['Accuracy'])
     plt.xlabel('Threshold')
     plt.ylabel('Accuracy')
-    plt.title(f'Pruning Threshold vs Accuracy with {num_features} features')
+    plt.title(f'Accuracy vs Pruning Threshold with {num_features} features')  
     plt.savefig(f'plots/threshold_accuracy_{argv[1]}_features.png')
     plt.clf()
 
@@ -28,7 +28,7 @@ def main():
     plt.plot(df['Threshold'], df['Sparsity'])
     plt.xlabel('Threshold')
     plt.ylabel('Sparsity')
-    plt.title(f'Pruning Threshold vs Sparsity with {num_features} features')
+    plt.title(f'Sparsity vs Pruning Threshold with {num_features} features')
     plt.savefig(f'plots/threshold_sparsity_{argv[1]}_features.png')
     plt.clf()
 
@@ -36,7 +36,7 @@ def main():
     plt.plot(df['Sparsity'], df['Accuracy'])
     plt.xlabel('Sparsity')
     plt.ylabel('Accuracy')
-    plt.title(f'Sparsity vs Accuracy with {num_features} features')
+    plt.title(f'Accuracy vs Sparsity with {num_features} features')
     plt.savefig(f'plots/sparsity_accuracy_{argv[1]}_features.png')
     plt.clf()
 
